@@ -379,8 +379,21 @@ You're ready for what comes next.`
     s8Prompt.classList.remove('hidden');
     secretReveal.classList.add('hidden');
 
-    goToScreen(1);
-  });
+  // --- SUBTLE LOVE PARTICLES GENERATOR ---
+  function createLoveParticles() {
+    const particleCount = 12;
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      p.className = 'love-particle';
+      p.innerHTML = '♥';
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.animationDuration = `${7 + Math.random() * 6}s`;
+      p.style.animationDelay = `${Math.random() * 8}s`;
+      p.style.fontSize = `${0.6 + Math.random() * 0.5}rem`;
+      document.body.appendChild(p);
+    }
+  }
+  createLoveParticles();
 
   // Initialize Screen 1
   goToScreen(1);
