@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIVATE — FOR ONE PERSON</title>
+  
+  <!-- Google Fonts: Space Grotesk, Playfair Display, Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Film Grain Overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Custom Pointer Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Ambient Audio Controls -->
+  <button id="soundToggle" class="sound-toggle" aria-label="Toggle ambient sound">
+    <span class="sound-icon">
+      <span class="bar bar-1"></span>
+      <span class="bar bar-2"></span>
+      <span class="bar bar-3"></span>
+    </span>
+    <span id="soundLabel" class="sound-label">SOUND: OFF</span>
+  </button>
+
+  <!-- Progress Bar / Indicator -->
+  <div class="progress-bar-container">
+    <div id="progressFill" class="progress-fill"></div>
+  </div>
+  <div id="screenCounter" class="screen-counter">01 / 09</div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="app-container">
+
+    <!-- SCREEN 1 — "ACCESS" -->
+    <section id="screen1" class="screen active">
+      <div class="screen-content center-align">
+        <div class="tag-badge">PRIVATE</div>
+        <p class="subtext-muted">This page was made for one person.</p>
+        <div class="typing-container">
+          <span id="screen1Typing" class="type-text"></span><span class="blinking-cursor">|</span>
+        </div>
+        <button id="btnEnter" class="btn-primary fade-in-btn hidden">
+          ENTER <span class="arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 2 — THE NAME -->
+    <section id="screen2" class="screen">
+      <div class="screen-content center-align">
+        <h1 class="hero-name" id="heroName">SANJIIII</h1>
+        <p id="screen2Subtitle1" class="tiny-text opacity-0">Yes. You.</p>
+        <p id="screen2Subtitle2" class="tiny-text opacity-0 mt-3">It's your birthday.</p>
+        <button id="btnScreen2Next" class="btn-secondary mt-8 opacity-0">
+          CONTINUE <span class="arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3 — "I COULD HAVE JUST SAID IT" -->
+    <section id="screen3" class="screen">
+      <div class="screen-content center-align">
+        <p class="cinematic-line opacity-0" id="s3Line1">I could've just texted you</p>
+        <p class="cinematic-line highlight opacity-0" id="s3Line2">Happy Birthday <span class="heart-accent">❤️</span></p>
+        <p class="cinematic-line opacity-0" id="s3Line3">But where's the fun in that?</p>
+        <button id="btnScreen3Next" class="btn-primary mt-8 opacity-0">
+          KEEP GOING <span class="arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 4 — THE FILE (Fake computer interface) -->
+    <section id="screen4" class="screen">
+      <div class="screen-content">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-title">archive://us</div>
+            <div class="terminal-status" id="fileExploredCount">0/5 explored</div>
+          </div>
+          <div class="terminal-body">
+            <p class="terminal-intro">Select a file to decrypt:</p>
+            <ul class="file-list">
+              <li class="file-item" data-file="01_the_beginning.txt">
+                <span class="file-icon">📄</span>
+                <span class="file-name">01_the_beginning.txt</span>
+                <span class="file-status">UNREAD</span>
+              </li>
+              <li class="file-item" data-file="02_that_one_day.jpg">
+                <span class="file-icon">🖼️</span>
+                <span class="file-name">02_that_one_day.jpg</span>
+                <span class="file-status">UNREAD</span>
+              </li>
+              <li class="file-item" data-file="03_things_i_never_say.txt">
+                <span class="file-icon">📄</span>
+                <span class="file-name">03_things_i_never_say.txt</span>
+                <span class="file-status">UNREAD</span>
+              </li>
+              <li class="file-item" data-file="04_you_are_annoying.mp4">
+                <span class="file-icon">🎥</span>
+                <span class="file-name">04_you_are_annoying.mp4</span>
+                <span class="file-status">UNREAD</span>
+              </li>
+              <li class="file-item" data-file="05_read_this_last.txt">
+                <span class="file-icon">🔒</span>
+                <span class="file-name">05_read_this_last.txt</span>
+                <span class="file-status">UNREAD</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <button id="btnScreen4Next" class="btn-primary center-btn mt-6 opacity-0">
+          PROCEED TO PHOTO <span class="arrow">→</span>
+        </button>
+      </div>
+
+      <!-- File Modal Viewer -->
+      <div id="fileModal" class="file-modal" aria-hidden="true">
+        <div class="file-modal-backdrop"></div>
+        <div class="file-modal-content">
+          <button id="closeFileModal" class="file-modal-close" aria-label="Close file">✕</button>
+          <div class="file-modal-header" id="modalFileName">01_the_beginning.txt</div>
+          <div class="file-modal-body" id="modalFileContent">
+            <!-- Dynamic Content Injected Here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 5 — THE PHOTO -->
+    <section id="screen5" class="screen">
+      <div class="screen-content center-align">
+        <div class="photo-card-wrapper" id="photoCard">
+          <div class="photo-card">
+            <div class="photo-inner">
+              <div class="photo-placeholder">
+                <div class="polaroid-image">
+                  <img src="us.png" alt="SANJIIII and me" class="polaroid-img">
+                  <span class="polaroid-tag">[ 08.10 ]</span>
+                </div>
+                <div class="polaroid-caption">Tap to reveal note</div>
+              </div>
+              <div class="photo-note-back">
+                <p class="handwritten-note">"Because I remember how this moment felt."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-subtitles mt-6">
+          <p id="s5Line1" class="opacity-0">I don't need 100 pictures.</p>
+          <p id="s5Line2" class="opacity-0 mt-2">This one is enough.</p>
+        </div>
+
+        <button id="btnScreen5Next" class="btn-primary mt-8 opacity-0">
+          KEEP READING <span class="arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 6 — RANDOM THINGS -->
+    <section id="screen6" class="screen">
+      <div class="screen-content center-align">
+        <h2 class="section-title">Things that are strangely you</h2>
+        <p class="section-subtitle">Click each to uncover</p>
+
+        <div class="cards-grid">
+          <div class="trait-card" data-trait="laugh">
+            <div class="card-title">Your laugh</div>
+            <div class="card-reveal hidden">It instantly changes the mood of my entire day.</div>
+          </div>
+          <div class="trait-card" data-trait="jokes">
+            <div class="card-title">Your stupid jokes</div>
+            <div class="card-reveal hidden">They shouldn't be funny, but somehow they always work.</div>
+          </div>
+          <div class="trait-card" data-trait="expression">
+            <div class="card-title">That one expression</div>
+            <div class="card-reveal hidden">The look you give when you're trying hard not to smile.</div>
+          </div>
+          <div class="trait-card" data-trait="name">
+            <div class="card-title">The way you call me</div>
+            <div class="card-reveal hidden">It sounds completely different coming from you.</div>
+          </div>
+          <div class="trait-card" data-trait="messages">
+            <div class="card-title">Your random messages</div>
+            <div class="card-reveal hidden">The out-of-nowhere texts that make me smile at my phone.</div>
+          </div>
+          <div class="trait-card" data-trait="habits">
+            <div class="card-title">Your annoying habits</div>
+            <div class="card-reveal hidden">Exasperating... yet impossible not to love.</div>
+          </div>
+        </div>
+
+        <button id="btnScreen6Next" class="btn-primary mt-8 opacity-0">
+          CONTINUE <span class="arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 7 — THE REAL MESSAGE -->
+    <section id="screen7" class="screen plain-screen">
+      <div class="screen-content center-align">
+        <p id="s7Line1" class="raw-text opacity-0">Okay.</p>
+        <p id="s7Line2" class="raw-text opacity-0 mt-4">Enough hiding behind a fancy website.</p>
+        
+        <div id="s7Letter" class="letter-box opacity-0 mt-8">
+          <p>I hope this year gives you everything you've been working for.</p>
+          <p class="mt-4">I hope you become the person you've always wanted to be.</p>
+          <p class="mt-4">And wherever life takes you, I hope you always have reasons to smile.</p>
+        </div>
+
+        <div id="s7Wish" class="opacity-0 mt-8">
+          <p class="final-wish-name">Happy Birthday, SANJIIII.</p>
+          <p class="final-wish-sub">I'm really glad you exist.</p>
+        </div>
+
+        <button id="btnScreen7Next" class="btn-secondary mt-10 opacity-0">
+          ONE LAST THING... <span class="arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 8 — ONE LAST THING -->
+    <section id="screen8" class="screen">
+      <div class="screen-content center-align">
+        <p id="s8Prompt" class="cinematic-line">There's one more thing.</p>
+
+        <div id="doNotClickContainer" class="mt-8">
+          <button id="btnDoNotClick" class="btn-danger">
+            DO NOT CLICK
+          </button>
+        </div>
+
+        <!-- Hidden Secret Sequence Revealed After Click -->
+        <div id="secretReveal" class="secret-reveal hidden">
+          <p id="s8Secret1" class="secret-line opacity-0">You clicked it.</p>
+          <p id="s8Secret2" class="secret-line opacity-0 mt-4">So I guess you really are curious.</p>
+          <p id="s8Secret3" class="secret-line opacity-0 mt-4">That's one of the things I like about you.</p>
+          <p id="s8Secret4" class="secret-heart opacity-0 mt-6">❤️</p>
+          
+          <button id="btnScreen8Next" class="btn-primary mt-10 opacity-0">
+            FINISH <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL SCREEN — CREDITS & REPLAY -->
+    <section id="screenFinal" class="screen final-screen">
+      <div class="screen-content center-align">
+        <div class="credits-container">
+          <p class="credit-line text-muted">made with too much thought</p>
+          <p class="credit-line highlight-name">for my Thangapaiyaaa</p>
+          <p class="credit-line date-stamp">08.10.2026</p>
+
+          <button id="btnReplay" class="btn-replay mt-12">
+            replay <span class="replay-icon">↻</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/ambient-sound.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
